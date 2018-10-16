@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/security
+http://www.springframework.org/schema/security/spring-security.xsd">
+    <!--配置不过滤的资源-->
+    <security:http security="none" pattern="login.html"></security:http>
+    <security:http use-expressions="true" auto-config="true">
+        <security:intercept-url access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"></security:intercept-url>
+        <security:form-login login-processing-url="/login" default-target-url="index.html" password-parameter="password" username-parameter="username" login-page="/login.html"></security:form-login>
+        <security:logout logout-success-url="login.html" logout-url="logout" invalidate-session="true" ></security:logout>
+        <security:csrf disabled="true"></security:csrf>
+    </security:http>
+    <!--指定加密类-->
+    <security:authentication-manager id="authenticationManager">
+        <security:authentication-provider user-service-ref="userService">
+            <security:password-encoder ref="passwordEncoder"></security:password-encoder>
+        </security:authentication-provider>
+    </security:authentication-manager>
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+    <security:global-method-security secured-annotations="enabled"></security:global-method-security>
+    <!--<security:global-method-security pre-post-annotations="enabled"></security:global-method-security>-->
+</beans>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>product</title>
+</head>
+<link rel="icon" href="assets/img/favicon.ico">
+
+<link rel="stylesheet" type="text/css" href="css/webbase.css" />
+<link rel="stylesheet" type="text/css" href="css/widget-cartPanelView.css" />
+<script type="text/javascript" src="js/plugins/jquery/jquery.min.js"></script>
+<script src="plugins/angularjs/angular.min.js"></script>
+<!--angular mvc抽取-->
+<script src="js/base.js"></script>
+<script src="js/service/searchService.js"></script>
+<script src="js/controller/searchController.js"></script>
+<body ng-app="pinyougou" ng-controller="searchController" ng-init="findAll()">
+    <table>
+        <th>ID</th>
+        <th>商品名称</th>
+        <th>出发时间</th>
+        <th>价格</th>   <input ng-model="entity.productName"/><input type="button" value="搜索" ng-click="searchByName()"/>
+        <tr ng-repeat="p in productList">
+            <td>{{p.id}}</td>
+            <td>{{p.productName}}</td>
+            <td>{{p.departureTime}}</td>
+            <td>{{p.productPrice}}</td>
+        </tr>
+    </table>
+</body>
+</html>
