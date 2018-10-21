@@ -8,4 +8,10 @@
         属性中  -->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
+    <plugins>
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <property name="helperDialect" value="mysql"></property>
+            <property name="rowBoundsWithCount" value="true"></property>
+        </plugin>
+    </plugins>
 </configuration>
