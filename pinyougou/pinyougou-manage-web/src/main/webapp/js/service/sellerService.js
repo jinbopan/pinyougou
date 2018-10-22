@@ -17,8 +17,8 @@ app.service("sellerService",function ($http) {
         return $http.post("../seller/update.do",entity);
     };
 
-    this.findOne = function (id) {
-        return $http.get("../seller/findOne.do?id=" + id);
+    this.findOne = function (sellerId) {
+        return $http.get("../seller/findOne.do?sellerId=" + sellerId);
     };
 
     this.delete = function (selectedIds) {

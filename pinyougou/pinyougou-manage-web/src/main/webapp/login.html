@@ -52,6 +52,13 @@
 							<div class="logined">
 								<a class="sui-btn btn-block btn-xlarge btn-danger" onclick="document:loginform.submit()" target="_blank">登&nbsp;&nbsp;录</a>
 							</div>
+							<script>
+                                document.onkeydown=function (ev) {
+                                    if(13 == ev.keyCode){
+                                        document.getElementById("loginform").submit();
+                                    }
+                                }
+							</script>
 						</form>
 
 					</div>
