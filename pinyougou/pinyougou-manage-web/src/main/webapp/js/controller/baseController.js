@@ -14,6 +14,9 @@ app.controller("baseController",function ($scope) {
 
     //是否选中，若选中，添加到id集合
     $scope.selectedIds = [];
+
+    //一个临时用来存储从后台显示当前每页所有的id集合
+    $scope.temporarySelectedIds=[];
     $scope.updateSelection = function (event, id) {
         if (event.target.checked) {
             $scope.selectedIds.push(id);

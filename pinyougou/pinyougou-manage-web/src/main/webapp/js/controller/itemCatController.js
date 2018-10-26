@@ -1,10 +1,10 @@
-app.controller("itemCatController", function ($scope, $controller, itemCatService) {
+app.controller("itemCatController", function ($scope, $controller, itemCatService, typeTemplateService) {
 
     //加载baseController控制器并传入1个作用域，与angularJs运行时作用域相同.
-    $controller("baseController",{$scope:$scope});
+    $controller("baseController", {$scope: $scope});
 
     //加载列表数据
-    $scope.findAll = function(){
+    $scope.findAll = function () {
         itemCatService.findAll().success(function (response) {
             $scope.list = response;
         });
@@ -13,20 +13,28 @@ app.controller("itemCatController", function ($scope, $controller, itemCatServic
     $scope.findPage = function (page, rows) {
         itemCatService.findPage(page, rows).success(function (response) {
             $scope.list = response.rows;
+            //将id取出存入临时数组
+            $scope.temporarySelectedIdsMethod();
             $scope.paginationConf.totalItems = response.total;
         });
     };
 
     $scope.save = function () {
         var object;
-        if($scope.entity.id != null){//更新
+
+        $scope.entity.typeId = $("#typeTemplateId").val();
+
+        $scope.entity.parentId = $scope.parentId;
+
+        if ($scope.entity.id != null) {//更新
+
             object = itemCatService.update($scope.entity);
         } else {//新增
             object = itemCatService.add($scope.entity);
         }
         object.success(function (response) {
-            if(response.success){
-                $scope.reloadList();
+            if (response.success) {
+                $scope.findByParentId($scope.parentId);
             } else {
                 alert(response.message);
             }
@@ -36,18 +44,21 @@ app.controller("itemCatController", function ($scope, $controller, itemCatServic
     $scope.findOne = function (id) {
         itemCatService.findOne(id).success(function (response) {
             $scope.entity = response;
+
+            //设置类型模板
+            $("#typeTemplateId").select2("val", $scope.entity.typeId)
         });
     };
 
     $scope.delete = function () {
-        if($scope.selectedIds.length < 1){
+        if ($scope.selectedIds.length < 1) {
             alert("请先选择要删除的记录");
             return;
         }
-        if(confirm("确定要删除已选择的记录吗")){
+        if (confirm("确定要删除已选择的记录吗")) {
             itemCatService.delete($scope.selectedIds).success(function (response) {
-                if(response.success){
-                    $scope.reloadList();
+                if (response.success) {
+                    $scope.findByParentId($scope.parentId);
                     $scope.selectedIds = [];
                 } else {
                     alert(response.message);
@@ -65,18 +76,25 @@ app.controller("itemCatController", function ($scope, $controller, itemCatServic
 
     };
 
-    //根据父分类id查询其子分类
+
+
     $scope.findByParentId = function (parentId) {
         itemCatService.findByParentId(parentId).success(function (response) {
+            $scope.isRight = false;
             $scope.list = response;
+            $scope.temporarySelectedIdsMethod(response);
         });
     };
 
-    $scope.grade = 1;//默认1级
-    $scope.selectList = function (grade, entity) {
+    //默认第一级分类
+    $scope.grade = 1;
+    $scope.selectList = function (grade, entity) {//获取当前分类的子分类列表
         $scope.grade = grade;
 
-        switch (grade){
+        $scope.parentId = entity.id;//记录父id
+        $scope.parentName = entity.name;
+
+        switch (grade) {
             case 1:
                 $scope.entity_1 = null;
                 $scope.entity_2 = null;
@@ -90,6 +108,30 @@ app.controller("itemCatController", function ($scope, $controller, itemCatServic
         }
 
         $scope.findByParentId(entity.id);
+    };
+
+    $scope.typeTemplateList = {data: []};
+    $scope.findTypeTemplateList = function () {
+        typeTemplateService.findTypeTemplateList().success(function (response) {
+
+            $scope.typeTemplateList.data = response;
+        });
+    };
+
+    $scope.temporarySelectedIdsMethod = function (list) {
+        $scope.temporarySelectedIds = [];
+        $scope.selectedIds = [];
+        for (var i = 0; i < list.length; i++) {
+            $scope.temporarySelectedIds.push(list[i].id);
+        }
+    };
+
+    //真实全选updateSelection
+    $scope.updateSelectionAll = function (event) {
+        $scope.selectedIds = [];
+        if(event.target.checked){
+            $scope.selectedIds=JSON.parse(JSON.stringify($scope.temporarySelectedIds));
+        }
     }
 
 });

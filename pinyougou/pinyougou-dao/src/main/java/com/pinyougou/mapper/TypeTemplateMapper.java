@@ -4,6 +4,9 @@ import com.pinyougou.pojo.TbTypeTemplate;
 
 import tk.mybatis.mapper.common.Mapper;
 
-public interface TypeTemplateMapper extends Mapper<TbTypeTemplate> {
+import java.util.List;
+import java.util.Map;
 
+public interface TypeTemplateMapper extends Mapper<TbTypeTemplate> {
+    public List<Map<String,String>> findTypeTemplateList();
 }

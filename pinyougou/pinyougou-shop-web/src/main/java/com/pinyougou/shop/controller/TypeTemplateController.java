@@ -1,4 +1,4 @@
-package com.pinyougou.manage.controller;
+package com.pinyougou.shop.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.pinyougou.pojo.TbTypeTemplate;
@@ -79,8 +79,25 @@ public class TypeTemplateController {
         return typeTemplateService.search(page, rows, typeTemplate);
     }
 
+    /**
+     * 返回[{"id":27,"text":"网络"},{"id":32,"text":"机身内存"}]，不够用，
+     * 实际需要 [{"id":27,"text":"网络","options":[{规格选项},...]},{"id":32,"text":"机身内存","options":[{规格选项},...]}]
+     * @return
+     */
     @GetMapping("/findTypeTemplateList")
     public List<Map<String,String>> findTypeTemplateList(){
         return typeTemplateService.findTypeTemplateList();
     }
+
+    /**
+     *
+     * @return  [{"id":27,"text":"网络","options":[{规格选项},...]},{"id":32,"text":"机身内存","options":[{规格选项},...]}]
+     */
+
+    @GetMapping("/findSpecList")
+    public List<Map> findSpecList(Long id) {
+        return typeTemplateService.findSpecList(id);
+    }
+
+
 }

@@ -16,6 +16,11 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+    <!--文件上传过滤器-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="maxUploadSize" value="5242880"></property>
+    </bean>
     <!--  引用 dubbo  服务  -->
     <dubbo:application name="pinyougou-shop-web"/>
     <!--配置注册中心地址-->
