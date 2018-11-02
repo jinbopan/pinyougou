@@ -1,4 +1,4 @@
-package com.itcast;
+package com.pinyougou;
 
 import org.csource.fastdfs.*;
 import org.junit.Test;

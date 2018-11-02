@@ -21,7 +21,7 @@ public class TbGoods implements Serializable {
 
     private String auditStatus;//0新商品未申请，1申请中，2审核通过，3审核不通过
 
-    private String isMarketable;
+    private String isMarketable;      //0为未上架：新增商品默认为未上架，1为上架,2为下架
 
     private Long brandId;
 

@@ -21,6 +21,6 @@
     </bean>
     <!--扫描dao-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.itcast.dao"></property>
+        <property name="basePackage" value="com.pinyougou.dao"></property>
     </bean>
 </beans>

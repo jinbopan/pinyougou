@@ -15,17 +15,22 @@ public interface SpecificationService extends BaseService<TbSpecification> {
 
     /**
      * 添加规格选项
+     *
      * @param specification
      * @return
      */
     void add(Specification specification);
+
     Specification findById(Long id);
 
     void update(Specification specification);
-    void delete(Long [] ids);
+
+    void delete(Long[] ids);
+
     /**
      * 查询规格选项列表
+     *
      * @return
      */
-    List<Map<String,String>> selectOptionList();
+    List<Map<String, String>> selectOptionList();
 }

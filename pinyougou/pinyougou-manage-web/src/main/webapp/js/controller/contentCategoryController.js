@@ -1,10 +1,10 @@
 app.controller("contentCategoryController", function ($scope, $controller, contentCategoryService) {
 
     //加载baseController控制器并传入1个作用域，与angularJs运行时作用域相同.
-    $controller("baseController",{$scope:$scope});
+    $controller("baseController", {$scope: $scope});
 
     //加载列表数据
-    $scope.findAll = function(){
+    $scope.findAll = function () {
         contentCategoryService.findAll().success(function (response) {
             $scope.list = response;
         });
@@ -19,13 +19,13 @@ app.controller("contentCategoryController", function ($scope, $controller, conte
 
     $scope.save = function () {
         var object;
-        if($scope.entity.id != null){//更新
+        if ($scope.entity.id != null) {//更新
             object = contentCategoryService.update($scope.entity);
         } else {//新增
             object = contentCategoryService.add($scope.entity);
         }
         object.success(function (response) {
-            if(response.success){
+            if (response.success) {
                 $scope.reloadList();
             } else {
                 alert(response.message);
@@ -40,13 +40,13 @@ app.controller("contentCategoryController", function ($scope, $controller, conte
     };
 
     $scope.delete = function () {
-        if($scope.selectedIds.length < 1){
+        if ($scope.selectedIds.length < 1) {
             alert("请先选择要删除的记录");
             return;
         }
-        if(confirm("确定要删除已选择的记录吗")){
+        if (confirm("确定要删除已选择的记录吗")) {
             contentCategoryService.delete($scope.selectedIds).success(function (response) {
-                if(response.success){
+                if (response.success) {
                     $scope.reloadList();
                     $scope.selectedIds = [];
                 } else {

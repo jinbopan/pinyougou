@@ -68,7 +68,7 @@ app.controller("brandController", function ($scope, brandService, $controller) {
     $scope.searchEntity = {};
     //根据条件查询
     $scope.search = function (pageNo, rows) {
-        brandService.search($scope.searchEntity,pageNo, rows).success(function (response) {
+        brandService.search($scope.searchEntity, pageNo, rows).success(function (response) {
             $scope.list = response.rows;
             $scope.paginationConf.totalItems = response.total;
         });

@@ -8,5 +8,5 @@ import java.util.List;
 import java.util.Map;
 
 public interface TypeTemplateMapper extends Mapper<TbTypeTemplate> {
-    public List<Map<String,String>> findTypeTemplateList();
+    public List<Map<String, String>> findTypeTemplateList();
 }

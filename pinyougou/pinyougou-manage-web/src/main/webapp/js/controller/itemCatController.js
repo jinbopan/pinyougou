@@ -77,7 +77,6 @@ app.controller("itemCatController", function ($scope, $controller, itemCatServic
     };
 
 
-
     $scope.findByParentId = function (parentId) {
         itemCatService.findByParentId(parentId).success(function (response) {
             $scope.isRight = false;
@@ -129,8 +128,8 @@ app.controller("itemCatController", function ($scope, $controller, itemCatServic
     //真实全选updateSelection
     $scope.updateSelectionAll = function (event) {
         $scope.selectedIds = [];
-        if(event.target.checked){
-            $scope.selectedIds=JSON.parse(JSON.stringify($scope.temporarySelectedIds));
+        if (event.target.checked) {
+            $scope.selectedIds = JSON.parse(JSON.stringify($scope.temporarySelectedIds));
         }
     }
 

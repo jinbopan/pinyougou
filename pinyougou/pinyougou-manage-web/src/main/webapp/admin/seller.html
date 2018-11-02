@@ -42,15 +42,15 @@
 
             <div class="box-tools pull-right">
                 <div class="has-feedback">
-                    公司名称：<input ng-model="searchEntity.name" >
-                    店铺名称： <input ng-model="searchEntity.nickName"  >
+                    公司名称：<input ng-model="searchEntity.name">
+                    店铺名称： <input ng-model="searchEntity.nickName">
                     状态：
-                    <input type="radio" ng-model="searchEntity.status" ng-value="" />全部
-                    <input type="radio" ng-model="searchEntity.status" ng-value="0" />待审核
-                    <input type="radio" ng-model="searchEntity.status" ng-value="1" />已审核
-                    <input type="radio" ng-model="searchEntity.status" ng-value="2" />审核未通过
-                    <input type="radio" ng-model="searchEntity.status" ng-value="3" />关闭
-                    <button class="btn btn-default" ng-click="reloadList()" >查询</button>
+                    <input type="radio" ng-model="searchEntity.status" ng-value=""/>全部
+                    <input type="radio" ng-model="searchEntity.status" ng-value="0"/>待审核
+                    <input type="radio" ng-model="searchEntity.status" ng-value="1"/>已审核
+                    <input type="radio" ng-model="searchEntity.status" ng-value="2"/>审核未通过
+                    <input type="radio" ng-model="searchEntity.status" ng-value="3"/>关闭
+                    <button class="btn btn-default" ng-click="reloadList()">查询</button>
                 </div>
             </div>
             <!--工具栏/-->
@@ -77,7 +77,9 @@
                     <td>{{entity.telephone}}</td>
                     <td>{{entity.status}}</td>
                     <td class="text-center">
-                        <button type="button" ng-click="findOne(entity.sellerId)" class="btn bg-olive btn-xs" data-toggle="modal" data-target="#sellerModal" >详情</button>
+                        <button type="button" ng-click="findOne(entity.sellerId)" class="btn bg-olive btn-xs"
+                                data-toggle="modal" data-target="#sellerModal">详情
+                        </button>
                     </td>
                 </tr>
 
@@ -93,8 +95,9 @@
     <!-- /.box-body -->
 
     <!-- 商家详情 -->
-    <div class="modal fade" id="sellerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" >
+    <div class="modal fade" id="sellerModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -114,7 +117,7 @@
                     <div id="myTabContent" class="tab-content">
                         <div class="tab-pane active in" id="home">
                             <br>
-                            <table class="table table-bordered table-striped"  width="800px">
+                            <table class="table table-bordered table-striped" width="800px">
                                 <tr>
                                     <td>公司名称</td>
                                     <td>{{entity.name}}</td>
@@ -135,7 +138,7 @@
                         </div>
                         <div class="tab-pane fade" id="linkman">
                             <br>
-                            <table class="table table-bordered table-striped" >
+                            <table class="table table-bordered table-striped">
                                 <tr>
                                     <td>联系人姓名</td>
                                     <td>{{entity.linkmanName}}</td>
@@ -156,7 +159,7 @@
                         </div>
                         <div class="tab-pane fade" id="certificate">
                             <br>
-                            <table class="table table-bordered table-striped" >
+                            <table class="table table-bordered table-striped">
                                 <tr>
                                     <td>营业执照号</td>
                                     <td>{{entity.licenseNumber}}</td>
@@ -173,7 +176,7 @@
                         </div>
                         <div class="tab-pane fade" id="ceo">
                             <br>
-                            <table class="table table-bordered table-striped" >
+                            <table class="table table-bordered table-striped">
                                 <tr>
                                     <td>法定代表人</td>
                                     <td>{{entity.legalPerson}}</td>
@@ -186,7 +189,7 @@
                         </div>
                         <div class="tab-pane fade" id="bank">
                             <br>
-                            <table class="table table-bordered table-striped" >
+                            <table class="table table-bordered table-striped">
                                 <tr>
                                     <td>开户行名称</td>
                                     <td>{{entity.bankUser}}</td>
@@ -207,9 +210,15 @@
 
                 </div>
                 <div class="modal-footer">
-                    <button class="btn btn-success" ng-if="entity.status == '0'" ng-click="updateStatus(entity.sellerId,1)" data-dismiss="modal" aria-hidden="true">审核通过</button>
-                    <button class="btn btn-danger" ng-if="entity.status == '0'" ng-click="updateStatus(entity.sellerId,2)" data-dismiss="modal" aria-hidden="true">审核未通过</button>
-                    <button class="btn btn-danger" ng-click="updateStatus(entity.sellerId,3)" data-dismiss="modal" aria-hidden="true">关闭商家</button>
+                    <button class="btn btn-success" ng-if="entity.status == '0'"
+                            ng-click="updateStatus(entity.sellerId,1)" data-dismiss="modal" aria-hidden="true">审核通过
+                    </button>
+                    <button class="btn btn-danger" ng-if="entity.status == '0'"
+                            ng-click="updateStatus(entity.sellerId,2)" data-dismiss="modal" aria-hidden="true">审核未通过
+                    </button>
+                    <button class="btn btn-danger" ng-click="updateStatus(entity.sellerId,3)" data-dismiss="modal"
+                            aria-hidden="true">关闭商家
+                    </button>
                     <button class="btn btn-default" data-dismiss="modal" aria-hidden="true">关闭</button>
                 </div>
             </div>

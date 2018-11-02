@@ -12,5 +12,5 @@ import java.util.Map;
 public interface SpecificationMapper extends Mapper<TbSpecification> {
     public Specification findById(Long id);
 
-    public List<Map<String,String>> selectOptionList();
+    public List<Map<String, String>> selectOptionList();
 }

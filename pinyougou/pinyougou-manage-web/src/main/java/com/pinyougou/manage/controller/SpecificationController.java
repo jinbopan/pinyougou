@@ -24,13 +24,14 @@ public class SpecificationController {
     }
 
     @GetMapping("/findPage")
-    public PageResult findPage(@RequestParam(value = "page", defaultValue = "1")Integer page,
-                               @RequestParam(value = "rows", defaultValue = "10")Integer rows) {
+    public PageResult findPage(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                               @RequestParam(value = "rows", defaultValue = "10") Integer rows) {
         return specificationService.findPage(page, rows);
     }
 
     /**
      * 添加规格选项
+     *
      * @param specification
      * @return
      */
@@ -74,23 +75,25 @@ public class SpecificationController {
 
     /**
      * 分页查询列表
+     *
      * @param specification 查询条件
-     * @param page 页号
-     * @param rows 每页大小
+     * @param page          页号
+     * @param rows          每页大小
      * @return
      */
     @PostMapping("/search")
-    public PageResult search(@RequestBody  TbSpecification specification, @RequestParam(value = "page", defaultValue = "1")Integer page,
-                               @RequestParam(value = "rows", defaultValue = "10")Integer rows) {
+    public PageResult search(@RequestBody TbSpecification specification, @RequestParam(value = "page", defaultValue = "1") Integer page,
+                             @RequestParam(value = "rows", defaultValue = "10") Integer rows) {
         return specificationService.search(page, rows, specification);
     }
 
     /**
      * 查询规格选项列表
+     *
      * @return
      */
     @PostMapping("/selectOptionList")
-    public List<Map<String,String>> selectOptionList(){
+    public List<Map<String, String>> selectOptionList() {
         return specificationService.selectOptionList();
     }
 }

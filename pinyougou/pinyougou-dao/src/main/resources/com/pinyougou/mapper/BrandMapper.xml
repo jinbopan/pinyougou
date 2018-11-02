@@ -6,7 +6,7 @@
         SELECT * FROM tb_brand
     </select>
     <!--批量删除-->
-    <delete id="batchDelete" parameterType="Long" >
+    <delete id="batchDelete" parameterType="Long">
         delete from tb_brand where id in
         <foreach collection="array" item="id" open="(" close=")" separator="," index="no">
             #{id}

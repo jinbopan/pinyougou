@@ -11,6 +11,7 @@ app.controller("goodsController", function ($scope, $controller, $location, good
         });
     };
 
+    $scope.isCheckCommit = {};
     $scope.findPage = function (page, rows) {
         goodsService.findPage(page, rows).success(function (response) {
             $scope.list = response.rows;
@@ -130,7 +131,7 @@ app.controller("goodsController", function ($scope, $controller, $location, good
             $scope.$watch("entity.goods.category1Id", function (newValue, oldValue) {
                 if (newValue != undefined) {
                     $scope.itemCat3List = null;
-                    $scope.entity.goods.typeTemplateId=null;
+                    $scope.entity.goods.typeTemplateId = null;
                 }
 
             });
@@ -212,9 +213,13 @@ app.controller("goodsController", function ($scope, $controller, $location, good
                 "attributeValue": [optionName]
             });
         }
+
+
     };
 
+
     //每次点击了规格选项后生成最新的SKU列表
+
     $scope.createItemList = function () {
         //初始化
         $scope.entity.itemList = [{spec: {}, price: 0, num: 9999, status: "0", isDefault: "0"}];
@@ -274,8 +279,38 @@ app.controller("goodsController", function ($scope, $controller, $location, good
             alert("请先选择商品");
             return;
         }
+        for (var i = 0; i < $scope.list.length; i++) {
+            for (var j = 0; j < $scope.selectedIds.length; j++) {
+                if ($scope.list[i].id == $scope.selectedIds[j] && $scope.list[i].auditStatus != "0") {
+                    alert("请先选择未审核过的商品");
+                    return;
+                }
+            }
+        }
+
+
         if (confirm("确定要更新选中的商品状态吗？")) {
             goodsService.updateStatus($scope.selectedIds, status).success(function (response) {
+                if (response.success) {
+                    //刷新列表并清空选中的那些商品
+                    $scope.reloadList();
+                    $scope.selectedIds = [];
+                } else {
+                    alert(response.message);
+                }
+            });
+        }
+    };
+
+    //修改商品是否上下架
+    $scope.updateIsMarketable = function (status) {
+        if ($scope.selectedIds.length < 1) {
+            alert("请先选择商品");
+            return;
+        }
+
+        if (confirm("确定要更新选中的商品状态吗？")) {
+            goodsService.updateIsMarketable($scope.selectedIds, status).success(function (response) {
                 if (response.success) {
                     //刷新列表并清空选中的那些商品
                     $scope.reloadList();

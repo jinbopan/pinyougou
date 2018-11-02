@@ -7,7 +7,7 @@ import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@Table(name="tb_order_item")
+@Table(name = "tb_order_item")
 public class TbOrderItem implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

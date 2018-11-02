@@ -1,4 +1,4 @@
-package com.itcast.pojo;
+package com.pinyougou.pojo;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

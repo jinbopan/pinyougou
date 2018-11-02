@@ -1,6 +1,6 @@
-package com.itcast.dao;
+package com.pinyougou.dao;
 
-import com.itcast.pojo.TUser;
+import com.pinyougou.pojo.TUser;
 import org.apache.ibatis.annotations.Select;
 
 public interface UserDao {

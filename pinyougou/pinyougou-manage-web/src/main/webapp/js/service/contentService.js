@@ -1,7 +1,7 @@
 //定义业务服务
-app.service("contentService",function ($http) {
+app.service("contentService", function ($http) {
     //加载列表数据
-    this.findAll = function(){
+    this.findAll = function () {
         return $http.get("../content/findAll.do");
     };
 
@@ -10,11 +10,11 @@ app.service("contentService",function ($http) {
     };
 
     this.add = function (entity) {
-        return $http.post("../content/add.do",entity);
+        return $http.post("../content/add.do", entity);
     };
 
     this.update = function (entity) {
-        return $http.post("../content/update.do",entity);
+        return $http.post("../content/update.do", entity);
     };
 
     this.findOne = function (id) {

@@ -41,7 +41,8 @@
         <logout/>
     </http>
 
-    <beans:bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></beans:bean>
+    <beans:bean id="bCryptPasswordEncoder"
+                class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></beans:bean>
 
     <!--  配置自定义认证  -->
     <beans:bean id="userDetailsServiceImpl" class="com.pinyougou.shop.service.impl.UserDetailsServiceImpl">

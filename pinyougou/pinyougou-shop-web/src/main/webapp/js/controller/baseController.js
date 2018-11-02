@@ -19,7 +19,8 @@ app.controller("baseController", function ($scope) {
 
     //定义一个放置选择了id的数组
     $scope.selectedIds = [];
-
+    //一个临时用来存储从后台显示当前每页所有的id集合
+    $scope.temporarySelectedIds = [];
     $scope.updateSelection = function ($event, id) {
         if ($event.target.checked) {
             $scope.selectedIds.push(id);
@@ -34,8 +35,8 @@ app.controller("baseController", function ($scope) {
     $scope.jsonToString = function (jsonStr, key) {
         var str = "";
         var jsonArray = JSON.parse(jsonStr);
-        for(var i = 0; i < jsonArray.length; i++) {
-            if(i > 0) {
+        for (var i = 0; i < jsonArray.length; i++) {
+            if (i > 0) {
                 str += ",";
             }
             str += jsonArray[i][key];
@@ -46,7 +47,7 @@ app.controller("baseController", function ($scope) {
     //在一个集合中根据某个对象的属性值找该对象并返回
     $scope.findObjectByKeyAndValue = function (list, keyName, keyValue) {
         for (var i = 0; i < list.length; i++) {
-            if(list[i][keyName]==keyValue) {
+            if (list[i][keyName] == keyValue) {
                 return list[i];
             }
         }

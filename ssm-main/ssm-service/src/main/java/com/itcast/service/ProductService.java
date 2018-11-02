@@ -1,6 +1,6 @@
-package com.itcast.service;
+package com.pinyougou.service;
 
-import com.itcast.pojo.Product;
+import com.pinyougou.pojo.Product;
 
 import java.util.List;
 

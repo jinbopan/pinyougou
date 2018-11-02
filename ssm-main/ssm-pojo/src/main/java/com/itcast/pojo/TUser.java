@@ -1,4 +1,4 @@
-package com.itcast.pojo;
+package com.pinyougou.pojo;
 
 public class TUser {
     private Integer id;

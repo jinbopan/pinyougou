@@ -22,14 +22,14 @@ public class ItemCatController {
     }
 
     @GetMapping("/findPage")
-    public PageResult findPage(@RequestParam(value = "page", defaultValue = "1")Integer page,
-                               @RequestParam(value = "rows", defaultValue = "10")Integer rows) {
+    public PageResult findPage(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                               @RequestParam(value = "rows", defaultValue = "10") Integer rows) {
         return itemCatService.findPage(page, rows);
     }
 
     @GetMapping("/findByParentId")
-    public List<TbItemCat> findByParentId(Long parentId){
-        TbItemCat tbItemCat=new TbItemCat();
+    public List<TbItemCat> findByParentId(Long parentId) {
+        TbItemCat tbItemCat = new TbItemCat();
         tbItemCat.setParentId(parentId);
         return itemCatService.findBySomething(tbItemCat);
     }
@@ -74,14 +74,15 @@ public class ItemCatController {
 
     /**
      * 分页查询列表
+     *
      * @param itemCat 查询条件
-     * @param page 页号
-     * @param rows 每页大小
+     * @param page    页号
+     * @param rows    每页大小
      * @return
      */
     @PostMapping("/search")
-    public PageResult search(@RequestBody  TbItemCat itemCat, @RequestParam(value = "page", defaultValue = "1")Integer page,
-                               @RequestParam(value = "rows", defaultValue = "10")Integer rows) {
+    public PageResult search(@RequestBody TbItemCat itemCat, @RequestParam(value = "page", defaultValue = "1") Integer page,
+                             @RequestParam(value = "rows", defaultValue = "10") Integer rows) {
         return itemCatService.search(page, rows, itemCat);
     }
 

@@ -11,12 +11,14 @@ public interface BrandService extends BaseService<TbBrand> {
     public List<TbBrand> queryAll();
 
     PageResult search(TbBrand brand, Integer pageNo, Integer rows);
+
     //批量删除
-    public void batchDelete(Long [] ids);
+    public void batchDelete(Long[] ids);
 
     /**
      * 查询品牌列表
+     *
      * @return
      */
-    List<Map<String,String>> selectOptionList();
+    List<Map<String, String>> selectOptionList();
 }

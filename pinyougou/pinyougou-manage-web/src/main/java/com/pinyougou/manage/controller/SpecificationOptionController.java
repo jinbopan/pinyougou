@@ -22,8 +22,8 @@ public class SpecificationOptionController {
     }
 
     @GetMapping("/findPage")
-    public PageResult findPage(@RequestParam(value = "page", defaultValue = "1")Integer page,
-                               @RequestParam(value = "rows", defaultValue = "10")Integer rows) {
+    public PageResult findPage(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                               @RequestParam(value = "rows", defaultValue = "10") Integer rows) {
         return specificationOptionService.findPage(page, rows);
     }
 
@@ -67,14 +67,15 @@ public class SpecificationOptionController {
 
     /**
      * 分页查询列表
+     *
      * @param specificationOption 查询条件
-     * @param page 页号
-     * @param rows 每页大小
+     * @param page                页号
+     * @param rows                每页大小
      * @return
      */
     @PostMapping("/search")
-    public PageResult search(@RequestBody  TbSpecificationOption specificationOption, @RequestParam(value = "page", defaultValue = "1")Integer page,
-                               @RequestParam(value = "rows", defaultValue = "10")Integer rows) {
+    public PageResult search(@RequestBody TbSpecificationOption specificationOption, @RequestParam(value = "page", defaultValue = "1") Integer page,
+                             @RequestParam(value = "rows", defaultValue = "10") Integer rows) {
         return specificationOptionService.search(page, rows, specificationOption);
     }
 

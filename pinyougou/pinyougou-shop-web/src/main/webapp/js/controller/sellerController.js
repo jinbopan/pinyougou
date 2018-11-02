@@ -1,10 +1,10 @@
 app.controller("sellerController", function ($scope, $controller, sellerService) {
 
     //加载baseController控制器并传入1个作用域，与angularJs运行时作用域相同.
-    $controller("baseController",{$scope:$scope});
+    $controller("baseController", {$scope: $scope});
 
     //加载列表数据
-    $scope.findAll = function(){
+    $scope.findAll = function () {
         sellerService.findAll().success(function (response) {
             $scope.list = response;
         });
@@ -19,13 +19,13 @@ app.controller("sellerController", function ($scope, $controller, sellerService)
 
     $scope.save = function () {
         var object;
-        if($scope.entity.id != null){//更新
+        if ($scope.entity.id != null) {//更新
             object = sellerService.update($scope.entity);
         } else {//新增
             object = sellerService.add($scope.entity);
         }
         object.success(function (response) {
-            if(response.success){
+            if (response.success) {
                 $scope.reloadList();
             } else {
                 alert(response.message);
@@ -40,13 +40,13 @@ app.controller("sellerController", function ($scope, $controller, sellerService)
     };
 
     $scope.delete = function () {
-        if($scope.selectedIds.length < 1){
+        if ($scope.selectedIds.length < 1) {
             alert("请先选择要删除的记录");
             return;
         }
-        if(confirm("确定要删除已选择的记录吗")){
+        if (confirm("确定要删除已选择的记录吗")) {
             sellerService.delete($scope.selectedIds).success(function (response) {
-                if(response.success){
+                if (response.success) {
                     $scope.reloadList();
                     $scope.selectedIds = [];
                 } else {
@@ -68,7 +68,7 @@ app.controller("sellerController", function ($scope, $controller, sellerService)
     //新增商家信息
     $scope.add = function () {
         sellerService.add($scope.entity).success(function (response) {
-            if(response.success){
+            if (response.success) {
                 //注册成功，跳转到登录页面
                 location.href = "shoplogin.html";
             } else {

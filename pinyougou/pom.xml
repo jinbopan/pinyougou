@@ -4,17 +4,23 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.itcast</groupId>
+    <groupId>com.pinyougou</groupId>
     <artifactId>pinyougou</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>pinyougou-pojo</module>
         <module>pinyougou-dao</module>
-        <module>pinyougou-sellergoods</module>
         <module>pinyougou-common</module>
+        <module>pinyougou-sellergoods</module>
         <module>pinyougou-manage-web</module>
         <module>pinyougou-shop-web</module>
+        <module>pinyougou-content</module>
+        <module>pinyougou-portal-web</module>
+        <module>../springdataSolr</module>
+        <module>pinyougou-solr-import</module>
+        <module>pinyougou-search</module>
+        <module>pinyougou-search-web</module>
     </modules>
     <!-- 集中定义依赖版本号 -->
     <properties>

@@ -1,7 +1,7 @@
 //定义业务服务
-app.service("typeTemplateService",function ($http) {
+app.service("typeTemplateService", function ($http) {
     //加载列表数据
-    this.findAll = function(){
+    this.findAll = function () {
         return $http.get("../typeTemplate/findAll.do");
     };
 
@@ -10,11 +10,11 @@ app.service("typeTemplateService",function ($http) {
     };
 
     this.add = function (entity) {
-        return $http.post("../typeTemplate/add.do",entity);
+        return $http.post("../typeTemplate/add.do", entity);
     };
 
     this.update = function (entity) {
-        return $http.post("../typeTemplate/update.do",entity);
+        return $http.post("../typeTemplate/update.do", entity);
     };
 
     this.findOne = function (id) {
@@ -28,10 +28,10 @@ app.service("typeTemplateService",function ($http) {
     this.search = function (page, rows, searchEntity) {
         return $http.post("../typeTemplate/search.do?page=" + page + "&rows=" + rows, searchEntity);
     };
-    this.findTypeTemplateList=function () {
+    this.findTypeTemplateList = function () {
         return $http.get("../typeTemplate/findTypeTemplateList.do");
     }
-    this.findSpecList=function (id) {
-        return $http.get("../typeTemplate/findSpecList.do?id="+id);
+    this.findSpecList = function (id) {
+        return $http.get("../typeTemplate/findSpecList.do?id=" + id);
     }
 });

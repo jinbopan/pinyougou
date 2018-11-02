@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
-@Table(name="tb_item_cat")
+@Table(name = "tb_item_cat")
 public class TbItemCat implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

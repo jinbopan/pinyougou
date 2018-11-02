@@ -1,7 +1,7 @@
 package com.itheima.controller;
 
-import com.itcast.pojo.Product;
-import com.itcast.service.ProductService;
+import com.pinyougou.pojo.Product;
+import com.pinyougou.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

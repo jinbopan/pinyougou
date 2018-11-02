@@ -90,10 +90,11 @@ public class BrandController {
 
     /**
      * 查询品牌列表
+     *
      * @return
      */
     @PostMapping("/selectOptionList")
-    public List<Map<String,String>> selectOptionList(){
+    public List<Map<String, String>> selectOptionList() {
         return brandService.selectOptionList();
     }
 }

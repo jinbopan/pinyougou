@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 
-@Table(name="tb_type_template")
+@Table(name = "tb_type_template")
 public class TbTypeTemplate implements Serializable {
 
     @Id

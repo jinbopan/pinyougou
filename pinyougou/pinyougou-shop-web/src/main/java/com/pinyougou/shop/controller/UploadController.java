@@ -14,7 +14,7 @@ public class UploadController {
     public Result upload(MultipartFile file) {
         try {
             FastDFSClient fastDFSClient = new FastDFSClient("classpath:fastdfs/tracker.conf");
-            String filename=file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".")+1);
+            String filename = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf(".") + 1);
             String url = fastDFSClient.uploadFile(file.getBytes(), filename);
             return Result.ok(url);
         } catch (Exception e) {

@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>ssm-main</artifactId>
-        <groupId>com.itcast</groupId>
+        <groupId>com.pinyougou</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -12,7 +12,7 @@
     <artifactId>ssm-service</artifactId>
     <dependencies>
         <dependency>
-            <groupId>com.itcast</groupId>
+            <groupId>com.pinyougou</groupId>
             <artifactId>ssm-dao</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>

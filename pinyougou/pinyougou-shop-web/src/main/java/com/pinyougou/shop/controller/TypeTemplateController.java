@@ -23,8 +23,8 @@ public class TypeTemplateController {
     }
 
     @GetMapping("/findPage")
-    public PageResult findPage(@RequestParam(value = "page", defaultValue = "1")Integer page,
-                               @RequestParam(value = "rows", defaultValue = "10")Integer rows) {
+    public PageResult findPage(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                               @RequestParam(value = "rows", defaultValue = "10") Integer rows) {
         return typeTemplateService.findPage(page, rows);
     }
 
@@ -68,30 +68,31 @@ public class TypeTemplateController {
 
     /**
      * 分页查询列表
+     *
      * @param typeTemplate 查询条件
-     * @param page 页号
-     * @param rows 每页大小
+     * @param page         页号
+     * @param rows         每页大小
      * @return
      */
     @PostMapping("/search")
-    public PageResult search(@RequestBody  TbTypeTemplate typeTemplate, @RequestParam(value = "page", defaultValue = "1")Integer page,
-                               @RequestParam(value = "rows", defaultValue = "10")Integer rows) {
+    public PageResult search(@RequestBody TbTypeTemplate typeTemplate, @RequestParam(value = "page", defaultValue = "1") Integer page,
+                             @RequestParam(value = "rows", defaultValue = "10") Integer rows) {
         return typeTemplateService.search(page, rows, typeTemplate);
     }
 
     /**
      * 返回[{"id":27,"text":"网络"},{"id":32,"text":"机身内存"}]，不够用，
      * 实际需要 [{"id":27,"text":"网络","options":[{规格选项},...]},{"id":32,"text":"机身内存","options":[{规格选项},...]}]
+     *
      * @return
      */
     @GetMapping("/findTypeTemplateList")
-    public List<Map<String,String>> findTypeTemplateList(){
+    public List<Map<String, String>> findTypeTemplateList() {
         return typeTemplateService.findTypeTemplateList();
     }
 
     /**
-     *
-     * @return  [{"id":27,"text":"网络","options":[{规格选项},...]},{"id":32,"text":"机身内存","options":[{规格选项},...]}]
+     * @return [{"id":27,"text":"网络","options":[{规格选项},...]},{"id":32,"text":"机身内存","options":[{规格选项},...]}]
      */
 
     @GetMapping("/findSpecList")

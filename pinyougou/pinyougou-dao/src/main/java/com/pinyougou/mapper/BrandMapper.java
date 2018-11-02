@@ -12,5 +12,5 @@ public interface BrandMapper extends Mapper<TbBrand> {
     //批量删除
     public void batchDelete(Long[] ids);
 
-    public List<Map<String,String>> selectOptionList();
+    public List<Map<String, String>> selectOptionList();
 }

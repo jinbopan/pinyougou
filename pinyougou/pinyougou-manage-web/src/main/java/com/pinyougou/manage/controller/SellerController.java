@@ -23,8 +23,8 @@ public class SellerController {
     }
 
     @GetMapping("/findPage")
-    public PageResult findPage(@RequestParam(value = "page", defaultValue = "1")Integer page,
-                               @RequestParam(value = "rows", defaultValue = "10")Integer rows) {
+    public PageResult findPage(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                               @RequestParam(value = "rows", defaultValue = "10") Integer rows) {
         return sellerService.findPage(page, rows);
     }
 
@@ -68,14 +68,15 @@ public class SellerController {
 
     /**
      * 分页查询列表
+     *
      * @param seller 查询条件
-     * @param page 页号
-     * @param rows 每页大小
+     * @param page   页号
+     * @param rows   每页大小
      * @return
      */
     @PostMapping("/search")
-    public PageResult search(@RequestBody  TbSeller seller, @RequestParam(value = "page", defaultValue = "1")Integer page,
-                               @RequestParam(value = "rows", defaultValue = "10")Integer rows) {
+    public PageResult search(@RequestBody TbSeller seller, @RequestParam(value = "page", defaultValue = "1") Integer page,
+                             @RequestParam(value = "rows", defaultValue = "10") Integer rows) {
         return sellerService.search(page, rows, seller);
     }
 

@@ -31,7 +31,8 @@ public class FastDFSClient {
 
     /**
      * 上传文件
-     * @param file_buff 文件字节流
+     *
+     * @param file_buff     文件字节流
      * @param file_ext_name 文件拓展名（后缀）；如：jpg
      * @return 完整可访问路径
      * @throws Exception
