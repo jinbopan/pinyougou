@@ -25,4 +25,6 @@ public interface GoodsService extends BaseService<TbGoods> {
     void updateIsMarketable(Long[] ids, String status);
 
     List<TbItem> searchSkuByIds(Long[] ids);
+
+    Goods findByGoodsIdAndStatus(Long goodsId, String status);
 }

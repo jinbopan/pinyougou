@@ -318,18 +318,20 @@
 					<ul class="yui3-g">
 						<li class="yui3-u-1-5" ng-repeat="item in list.rows">
 							<div class="list-wrap">
-								<div class="p-img">
-									<img src="{{item.image}}" />
-								</div>
-								<div class="price">
-									<strong>
+								<a href="http://item.pinyougou.com/{{item.goodsId}}.html">
+									<div class="p-img">
+										<img src="{{item.image}}" />
+									</div>
+									<div class="price">
+										<strong>
 											<em>¥</em>
 											<i>{{item.price.toFixed(2)}}</i>
 										</strong>
-								</div>
-								<div class="attr" style="height: auto" ng-bind-html="item.title | trustHtml ">
+									</div>
+									<div class="attr" style="height: auto" ng-bind-html="item.title | trustHtml ">
 
-								</div>
+									</div>
+								</a>
 								<div class="cu">
 									<em><span>促</span>满一件可参加超值换购</em>
 								</div>
