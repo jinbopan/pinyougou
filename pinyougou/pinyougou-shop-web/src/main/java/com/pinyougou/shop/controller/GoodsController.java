@@ -6,9 +6,13 @@ import com.pinyougou.sellergoods.service.GoodsService;
 import com.pinyougou.vo.Goods;
 import com.pinyougou.vo.PageResult;
 import com.pinyougou.vo.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jms.*;
 import java.util.List;
 
 @RequestMapping("/goods")
@@ -17,6 +21,14 @@ public class GoodsController {
 
     @Reference
     private GoodsService goodsService;
+    @Autowired
+    private JmsTemplate jmsTemplate;
+
+    @Autowired
+    private Destination pinyougouDeleteFreemarkerTopic;
+
+    @Autowired
+    private Destination pinyougouSolrDeleteQueue;
 
     @RequestMapping("/findAll")
     public List<TbGoods> findAll() {
@@ -29,6 +41,16 @@ public class GoodsController {
         return goodsService.findPage(page, rows);
     }
 
+    private void sendMsg(Destination destination,Long[] ids){
+        jmsTemplate.send(destination, new MessageCreator() {
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                ObjectMessage objectMessage = session.createObjectMessage();
+                objectMessage.setObject(ids);
+                return objectMessage;
+            }
+        });
+    }
     @PostMapping("/add")
     public Result add(@RequestBody Goods goods) {
         try {
@@ -76,6 +98,10 @@ public class GoodsController {
     public Result delete(Long[] ids) {
         try {
             goodsService.updateIsDelete(ids);
+            //发送删除索引库ids
+            sendMsg(pinyougouSolrDeleteQueue, ids);
+            //删除消息订阅索引库
+            sendMsg(pinyougouDeleteFreemarkerTopic,ids );
             return Result.ok("删除成功");
         } catch (Exception e) {
             e.printStackTrace();

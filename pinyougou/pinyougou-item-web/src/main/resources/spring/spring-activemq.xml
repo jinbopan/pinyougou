@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://192.168.12.168:61616"/>
+    </bean>
+
+    <bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+        <property name="targetConnectionFactory" ref="targetConnectionFactory"/>
+    </bean>
+
+
+    <!--生成静态页消费者-->
+    <bean id="pinyougouFreemarkerTopic" class="org.apache.activemq.command.ActiveMQTopic">
+        <constructor-arg value="pinyougou_freemarker_item_topic"></constructor-arg>
+    </bean>
+    <bean id="itemFreemarkerConsumerListener" class="com.pinyougou.item.ItemFreemarkerConsumerListener">
+    </bean>
+    <bean id="jmsAuditContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="destination" ref="pinyougouFreemarkerTopic"/>
+        <property name="messageListener" ref="itemFreemarkerConsumerListener"/>
+        <!--&lt;!&ndash;  消息持久化  &ndash;&gt;
+        <property name="subscriptionDurable" value="true"/>
+        &lt;!&ndash;  设置为发布 / 订阅模式  &ndash;&gt;
+        <property name="pubSubDomain" value="true"/>
+        &lt;!&ndash;  是否开启事务  &ndash;&gt;
+        <property name="sessionTransacted" value="false"/>
+        &lt;!&ndash;  客户端消息确认模式名称  &ndash;&gt;
+        <property name="sessionAcknowledgeModeName" value="CLIENT_ACKNOWLEDGE"/>-->
+    </bean>
+
+    <!--删除静态页消费者-->
+    <bean id="pinyougouDeleteFreemarkerTopic" class="org.apache.activemq.command.ActiveMQTopic">
+        <constructor-arg value="pinyougou_deletefreemarker_item_topic"></constructor-arg>
+
+    </bean>
+    <bean id="itemDeleteFreemarkerConsumerListener" class="com.pinyougou.item.ItemDeleteFreemarkerConsumerListener">
+    </bean>
+    <bean id="jmsAuditContainer1" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="destination" ref="pinyougouDeleteFreemarkerTopic"/>
+        <property name="messageListener" ref="itemDeleteFreemarkerConsumerListener"/>
+       <!-- &lt;!&ndash;  消息持久化  &ndash;&gt;
+        <property name="subscriptionDurable" value="true"/>
+        &lt;!&ndash;  设置为发布 / 订阅模式  &ndash;&gt;
+        <property name="pubSubDomain" value="true"/>
+        &lt;!&ndash;  是否开启事务  &ndash;&gt;
+        <property name="sessionTransacted" value="false"/>
+        &lt;!&ndash;  客户端消息确认模式名称  &ndash;&gt;
+        <property name="sessionAcknowledgeModeName" value="CLIENT_ACKNOWLEDGE"/>-->
+    </bean>
+</beans>

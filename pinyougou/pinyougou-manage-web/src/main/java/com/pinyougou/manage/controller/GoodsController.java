@@ -1,14 +1,20 @@
 package com.pinyougou.manage.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.pinyougou.pojo.TbGoods;
 import com.pinyougou.pojo.TbItem;
-import com.pinyougou.search.service.ItemSearchService;
 import com.pinyougou.sellergoods.service.GoodsService;
 import com.pinyougou.vo.PageResult;
 import com.pinyougou.vo.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.web.bind.annotation.*;
 
+import javax.jms.*;
 import java.util.List;
 
 @RequestMapping("/goods")
@@ -18,8 +24,22 @@ public class GoodsController {
 
     @Reference
     private GoodsService goodsService;
-    @Reference
-    private ItemSearchService itemSearchService;
+
+    @Autowired
+    private Destination pinyougouSolrImportQueue;
+
+    @Autowired
+    private JmsTemplate jmsTemplate;
+
+
+
+    @Autowired
+    private Destination pinyougouFreemarkerTopic;
+
+
+    //改用activeMQ
+   /* @Reference
+    private ItemSearchService itemSearchService;*/
 
     @RequestMapping("/findAll")
     public List<TbGoods> findAll() {
@@ -64,7 +84,7 @@ public class GoodsController {
     public Result delete(Long[] ids) {
         try {
             goodsService.delete(ids);
-            itemSearchService.deleteList(ids);
+           //商家才有权限删除属于自己的商品，并相应的删除索引库
             return Result.ok("删除成功");
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,6 +92,17 @@ public class GoodsController {
         return Result.fail("删除失败");
     }
 
+
+    private void sendMsg(Destination destination,Long[] ids){
+        jmsTemplate.send(destination, new MessageCreator() {
+            @Override
+            public Message createMessage(Session session) throws JMSException {
+                ObjectMessage objectMessage = session.createObjectMessage();
+                objectMessage.setObject(ids);
+                return objectMessage;
+            }
+        });
+    }
     /**
      * 分页查询列表
      *
@@ -95,7 +126,17 @@ public class GoodsController {
             //当审核通过即状态为2时，应同步更新到索引库
             if ("2".equals(status)) {
                 List<TbItem> itemList = goodsService.searchSkuByIds(ids);
-                itemSearchService.importList(itemList);
+                //导入索引库
+                jmsTemplate.send(pinyougouSolrImportQueue, new MessageCreator() {
+                    @Override
+                    public Message createMessage(Session session) throws JMSException {
+                        TextMessage textMessage = session.createTextMessage();
+                        textMessage.setText(JSON.toJSONString(itemList));
+                        return textMessage;
+                    }
+                });
+                //发送生成静态页的ids
+                sendMsg(pinyougouFreemarkerTopic, ids);
             }
             return Result.ok("修改成功");
         } catch (Exception e) {

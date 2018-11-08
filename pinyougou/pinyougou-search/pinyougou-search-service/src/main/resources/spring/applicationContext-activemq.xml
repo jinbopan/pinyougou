@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="tcp://192.168.12.168:61616"/>
+    </bean>
+
+    <bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+        <property name="targetConnectionFactory" ref="targetConnectionFactory"/>
+    </bean>
+
+    <!--队列生产者,导入索引库-->
+    <bean id="pinyougouSolrImportQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="pinyougou-solr-item-import-queue"/>
+    </bean>
+    <!--监听器-->
+    <bean id="itemImportSolrActiveListener" class="com.pinyougou.search.queue.ItemImportSolrActiveListener"/>
+
+    <bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory"></property>
+        <property name="destination" ref="pinyougouSolrImportQueue"></property>
+        <property name="messageListener" ref="itemImportSolrActiveListener"/>
+    </bean>
+
+
+    <!--监听器-->
+    <bean id="itemDeleteSolrActiveListener" class="com.pinyougou.search.queue.ItemDeleteSolrActiveListener"/>
+    <!--队列生产者，删除索引库-->
+    <bean id="pinyougouSolrDeleteQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg value="pinyougou-solr-item-delete-queue"/>
+    </bean>
+    <bean id="jmsContainer1" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory"></property>
+        <property name="destination" ref="pinyougouSolrDeleteQueue"></property>
+        <property name="messageListener" ref="itemDeleteSolrActiveListener"/>
+    </bean>
+
+</beans>
