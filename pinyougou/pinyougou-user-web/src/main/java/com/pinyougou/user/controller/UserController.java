@@ -1,6 +1,7 @@
 package com.pinyougou.user.controller;
 
 import com.alibaba.dubbo.config.annotation.Reference;
+import com.pinyougou.pojo.TbAddress;
 import com.pinyougou.pojo.TbUser;
 import com.pinyougou.user.service.UserService;
 import com.pinyougou.utils.PhoneFormatCheckUtils;
@@ -48,6 +49,9 @@ public class UserController {
     @PostMapping("/add")
     public Result add(String smsCode, @RequestBody TbUser user) {
         try {
+            if(user.getUsername().equals("anonymousUser")){
+                return Result.fail("用户名非法");
+            }
             if (PhoneFormatCheckUtils.isPhoneLegal(user.getPhone())) {
                 //验证验证码是否合法
                 if (userService.checkCode(smsCode, user.getPhone())) {
@@ -76,6 +80,7 @@ public class UserController {
 
     @PostMapping("/update")
     public Result update(@RequestBody TbUser user) {
+
         try {
             userService.update(user);
             return Result.ok("修改成功");

@@ -7,6 +7,10 @@ app.controller("userController", function ($scope, $controller, userService) {
             alert("请输入用户名");
             return;
         }
+        if ($scope.entity.username == "anonymousUser") {
+            alert("用户名非法");
+            return;
+        }
         if ($scope.entity.password == "") {
             alert("请输入密码");
             return;

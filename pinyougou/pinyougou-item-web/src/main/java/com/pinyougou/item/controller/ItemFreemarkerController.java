@@ -37,6 +37,9 @@ public class ItemFreemarkerController {
         TbItemCat itemCat3 = itemCatService.findById(goods.getGoods().getCategory3Id());
         mv.addObject("itemCat3", itemCat3.getName());
 
+
+
+
         return mv;
     }
 }
