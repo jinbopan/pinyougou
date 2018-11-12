@@ -83,9 +83,11 @@ public class CartController {
     }
 
     @GetMapping("/addItemToCartList")
-
+    //方式二   //设置允许跨域请求  //允许携带并接收cookie
+    /*@CrossOrigin(origins = "http://item.pinyougou.com",allowCredentials = "true")*/
     public Result addItemToCartList(Integer num, Long itemId) {
         try {
+            //方式一
             //设置允许跨域请求
             response.setHeader("Access-Control-Allow-Origin", "http://item.pinyougou.com");
             //允许携带并接收cookie

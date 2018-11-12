@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>qrious-demo</title>
+    <script src="plugins/qrious.min.js"></script>
+</head>
+<body>
+<img id="qrious">
+<script>
+    /**
+     * L 级（低） 7％的码字可以被恢复。
+     M 级（中） 的码字的 15％可以被恢复。
+     Q 级（四分）的码字的 25％可以被恢复。
+     H 级（高） 的码字的 30％可以被恢复。
+     */
+    var qr = new QRious({
+    element: document.getElementById("qrious"),
+        size:250,
+        level:"q",
+        value:"http://www.itcast.cn"
+    });
+</script>
+</body>
+</html>

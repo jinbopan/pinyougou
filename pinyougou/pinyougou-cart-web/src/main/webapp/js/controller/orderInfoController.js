@@ -59,7 +59,7 @@ app.controller("orderInfoController", function ($scope, addressService, cartServ
         cartService.subOrder($scope.order).success(function (response) {
             if(response.success){
                 if("1"==$scope.order.paymentType){
-                    location.href="pay.html?outTradeNo="+response.message;
+                    location.href="pay.html#?outTradeNo="+response.message;
                 }else {
                     location.href="paysuccess.html";
                 }
